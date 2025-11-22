@@ -1,0 +1,60 @@
+<div class="local-dashboard">
+    <div class="dashboard-header">
+        <h2>{{#str}}welcome, local_dashboard, {{username}}{{/str}}</h2>
+    </div>
+
+    <div class="dashboard-stats">
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fa fa-graduation-cap"></i>
+            </div>
+            <div class="stat-content">
+                <h3>{{totalcourses}}</h3>
+                <p>{{#str}}totalcourses, local_dashboard{{/str}}</p>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fa fa-check-circle"></i>
+            </div>
+            <div class="stat-content">
+                <h3>{{completedactivities}}</h3>
+                <p>{{#str}}completedactivities, local_dashboard{{/str}}</p>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fa fa-clock-o"></i>
+            </div>
+            <div class="stat-content">
+                <h3>{{pendingactivities}}</h3>
+                <p>{{#str}}pendingactivities, local_dashboard{{/str}}</p>
+            </div>
+        </div>
+    </div>
+
+    {{#hascourses}}
+    <div class="dashboard-courses">
+        <h3>{{#str}}mycourses, local_dashboard{{/str}}</h3>
+        <div class="courses-grid">
+            {{#courses}}
+            <div class="course-card">
+                <h4>{{fullname}}</h4>
+                <p class="course-shortname">{{shortname}}</p>
+                <a href="{{config.wwwroot}}/course/view.php?id={{id}}" class="btn btn-primary">
+                    {{#str}}viewcourse, local_dashboard{{/str}}
+                </a>
+            </div>
+            {{/courses}}
+        </div>
+    </div>
+    {{/hascourses}}
+
+    {{^hascourses}}
+    <div class="alert alert-info">
+        {{#str}}nodata, local_dashboard{{/str}}
+    </div>
+    {{/hascourses}}
+</div>
