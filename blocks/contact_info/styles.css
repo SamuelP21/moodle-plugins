@@ -1,0 +1,64 @@
+/* Contact Info Block Styles */
+
+.block_contact_info .block-contact-info {
+    padding: 0;
+}
+
+.block_contact_info .contact-item {
+    display: flex;
+    align-items: flex-start;
+    padding: 12px 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.block_contact_info .contact-item:last-child {
+    border-bottom: none;
+}
+
+.block_contact_info .contact-item .icon {
+    font-size: 20px;
+    color: #0f6cbf;
+    margin-right: 12px;
+    margin-top: 2px;
+    min-width: 24px;
+    text-align: center;
+}
+
+.block_contact_info .contact-details {
+    flex: 1;
+}
+
+.block_contact_info .contact-details strong {
+    display: block;
+    color: #333;
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+
+.block_contact_info .contact-details p {
+    margin: 0;
+    color: #666;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.block_contact_info .contact-details a {
+    color: #0f6cbf;
+    text-decoration: none;
+}
+
+.block_contact_info .contact-details a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .block_contact_info .contact-item {
+        padding: 10px 0;
+    }
+    
+    .block_contact_info .contact-item .icon {
+        font-size: 18px;
+        margin-right: 10px;
+    }
+}
