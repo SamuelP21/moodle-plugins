@@ -1,0 +1,39 @@
+{{#hasconfig}}
+<div class="block-informacion-contacto">
+    {{#phone}}
+    <div class="contact-item">
+        <i class="fa fa-phone"></i>
+        <div class="contact-details">
+            <strong>{{#str}}phone, block_contacto{{/str}}</strong>
+            <p>{{{phone}}}</p>
+        </div>
+    </div>
+    {{/phone}}
+    
+    {{#email}}
+    <div class="contact-item">
+        <i class="fa fa-envelope"></i>
+        <div class="contact-details">
+            <strong>{{#str}}email, block_contacto{{/str}}</strong>
+            <p><a href="mailto:{{{email}}}">{{{email}}}</a></p>
+        </div>
+    </div>
+    {{/email}}
+    
+    {{#address}}
+    <div class="contact-item">
+        <i class="fa fa-map-marker"></i>
+        <div class="contact-details">
+            <strong>{{#str}}address, block_contacto{{/str}}</strong>
+            <p>{{{address}}}</p>
+        </div>
+    </div>
+    {{/address}}
+</div>
+{{/hasconfig}}
+
+{{^hasconfig}}
+<div class="alert alert-info">
+    {{#str}}noconfig, block_contacto{{/str}}
+</div>
+{{/hasconfig}}
