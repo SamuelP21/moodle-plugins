@@ -6,11 +6,12 @@
 
 ## 📦 Resumen de Plugins
 
-Este repositorio contiene tres plugins para Moodle listos para producción que demuestran diferentes enfoques arquitectónicos y mejores prácticas de desarrollo.
+Este repositorio contiene cuatro plugins para Moodle listos para producción que demuestran diferentes enfoques arquitectónicos y mejores prácticas de desarrollo.
 
 | Plugin | Tipo | Características Clave | Stack Tecnológico |
 |--------|------|----------------------|-------------------|
 | [**Dashboard Personal**](local/dashboard/) | Local | Analíticas de usuario, estadísticas en tiempo real | Mustache, SCSS, SQL |
+| [**Cursos Slider**](blocks/cursos_slider/) | Block | Carrusel responsive con React, categorización automática | React 18.2, Vite, Hooks |
 | [**Bloque Contacto**](blocks/contacto/) | Block | Renderizado basado en templates | Mustache, CSS |
 | [**Bloque Info Contacto**](blocks/contact_info/) | Block | Implementación ligera | HTML Writer |
 
@@ -29,6 +30,23 @@ Un dashboard completo para usuarios con estadísticas en tiempo real y vista gen
 - **Soporte i18n**: Internacionalización completa (ES/EN)
 
 [📖 Documentación Completa](local/dashboard/README.md) | [📸 Capturas](local/dashboard/screenshots/)
+
+---
+
+### Cursos Slider
+
+Bloque interactivo con carrusel responsive construido con React que muestra los cursos del usuario.
+
+**Características técnicas:**
+
+- **Carrusel Responsive**: Hook personalizado `useResponsiveCarousel` para adaptación dinámica
+- **Categorización Automática**: Cursos activos, terminados, próximos y archivados
+- **Optimización de Rendimiento**: Lazy loading de GIFs, memoización de componentes
+- **Componentes Modulares**: Arquitectura React escalable y mantenible
+- **Multi-tema**: Compatible con Boost y temas personalizados
+- **Soporte i18n**: Internacionalización completa (ES/EN)
+
+[📖 Documentación Completa](blocks/cursos_slider/README.md) | [📖 Documentación React](blocks/cursos_slider/react/app/README.md) | [📸 Capturas](blocks/cursos_slider/screenshots/)
 
 ---
 
@@ -53,9 +71,9 @@ Dos implementaciones que demuestran diferentes enfoques de renderizado:
 ## 💻 Stack Tecnológico
 
 - **Backend**: PHP 7.4+ con API de Moodle 4.4
-- **Frontend**: Templates Mustache, SCSS/CSS
+- **Frontend**: React 18.2, Templates Mustache, SCSS/CSS, Vite
 - **Base de Datos**: MySQL/PostgreSQL con consultas optimizadas
-- **Arquitectura**: Patrón MVC, inyección de dependencias
+- **Arquitectura**: Patrón MVC, componentes React, hooks personalizados
 - **Seguridad**: Control de acceso basado en capabilities
 
 ## 🏗️ Aspectos Técnicos Destacados
@@ -86,6 +104,35 @@ echo $OUTPUT->render_from_template('local_dashboard/index_page', [
     'courses' => $courses,
     'hascourses' => !empty($courses)
 ]);
+```
+
+### Hook Personalizado React
+
+```javascript
+// Hook para responsive design dinámico
+export const useResponsiveCarousel = () => {
+  const containerRef = useRef(null);
+  const [containerWidth, setContainerWidth] = useState(0);
+
+  useEffect(() => {
+    const updateWidth = () => {
+      if (containerRef.current) {
+        setContainerWidth(containerRef.current.offsetWidth);
+      }
+    };
+    updateWidth();
+    window.addEventListener('resize', updateWidth);
+    return () => window.removeEventListener('resize', updateWidth);
+  }, []);
+
+  const responsive = {
+    desktop: {
+      items: containerWidth > 1200 ? 6 : containerWidth > 900 ? 4 : 2
+    }
+  };
+
+  return { containerRef, responsive };
+};
 ```
 
 ### Compilación SCSS
@@ -126,6 +173,7 @@ Cada plugin puede instalarse de forma independiente. Consulta los archivos READM
 ```bash
 # Copiar a la instalación de Moodle
 cp -r local/dashboard /ruta/a/moodle/local/
+cp -r blocks/cursos_slider /ruta/a/moodle/blocks/
 cp -r blocks/contacto /ruta/a/moodle/blocks/
 cp -r blocks/contact_info /ruta/a/moodle/blocks/
 
@@ -188,6 +236,10 @@ require_capability('local/dashboard:view', context_system::instance());
 
 <img src="local/dashboard/screenshots/dashboard.png" alt="Dashboard Personal" width="700" style="border: 1px solid #ddd; border-radius: 8px;"/>
 
+### Cursos Slider
+
+<img src="blocks/cursos_slider/screenshots/bloque_cursos_slider.png" alt="Cursos Slider" width="700" style="border: 1px solid #ddd; border-radius: 8px;"/>
+
 ### Bloques de Contacto
 
 <table>
@@ -227,6 +279,20 @@ moodle-plugins/
 │       ├── scss/
 │       └── screenshots/
 └── blocks/
+    ├── cursos_slider/                 # Bloque con React
+    │   ├── README.md
+    │   ├── version.php
+    │   ├── block_cursos_slider.php
+    │   ├── services/
+    │   ├── lang/
+    │   ├── react/
+    │   │   └── app/
+    │   │       ├── README.md          # Documentación React
+    │   │       ├── src/
+    │   │       │   ├── components/
+    │   │       │   └── hooks/
+    │   │       └── dist/
+    │   └── screenshots/
     ├── contacto/                      # Bloque con Mustache
     │   ├── README.md
     │   ├── version.php
@@ -277,14 +343,16 @@ php admin/cli/purge_caches.php
 
 ## 📈 Características por Plugin
 
-| Característica | Dashboard | Contacto | Contact Info |
-|----------------|-----------|----------|--------------|
-| Templates Mustache | ✅ | ✅ | ❌ |
-| SCSS | ✅ | ❌ | ❌ |
-| Queries SQL Complejas | ✅ | ❌ | ❌ |
-| Multi-idioma | ✅ | ✅ | ✅ |
-| Configuración Global | ✅ | ✅ | ✅ |
-| Responsive Design | ✅ | ✅ | ✅ |
+| Característica | Dashboard | Cursos Slider | Contacto | Contact Info |
+|----------------|-----------|---------------|----------|--------------|
+| Templates Mustache | ✅ | ❌ | ✅ | ❌ |
+| React/Vite | ❌ | ✅ | ❌ | ❌ |
+| SCSS | ✅ | ❌ | ❌ | ❌ |
+| Queries SQL Complejas | ✅ | ✅ | ❌ | ❌ |
+| Hooks Personalizados | ❌ | ✅ | ❌ | ❌ |
+| Multi-idioma | ✅ | ✅ | ✅ | ✅ |
+| Configuración Global | ✅ | ❌ | ✅ | ✅ |
+| Responsive Design | ✅ | ✅ | ✅ | ✅ |
 
 ## 📄 Licencia
 
