@@ -1,0 +1,24 @@
+{
+  "index.html": {
+    "assets": [
+      "assets/revicons-f7b9c306.woff",
+      "assets/revicons-4ca02b8a.ttf",
+      "assets/revicons-9e4d4c68.eot"
+    ],
+    "file": "assets/index.js",
+    "isEntry": true,
+    "src": "index.html"
+  },
+  "node_modules/react-multi-carousel/lib/revicons.eot": {
+    "file": "assets/revicons-9e4d4c68.eot",
+    "src": "node_modules/react-multi-carousel/lib/revicons.eot"
+  },
+  "node_modules/react-multi-carousel/lib/revicons.ttf": {
+    "file": "assets/revicons-4ca02b8a.ttf",
+    "src": "node_modules/react-multi-carousel/lib/revicons.ttf"
+  },
+  "node_modules/react-multi-carousel/lib/revicons.woff": {
+    "file": "assets/revicons-f7b9c306.woff",
+    "src": "node_modules/react-multi-carousel/lib/revicons.woff"
+  }
+}

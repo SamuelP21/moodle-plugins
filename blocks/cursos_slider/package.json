@@ -1,0 +1,22 @@
+{
+  "name": "cursos_slider",
+  "version": "1.0.0",
+  "main": "gulpfile.js",
+  "scripts": {
+    "build": "gulp build",
+    "dev": "gulp dev",
+    "watch": "gulp watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "gulp": "^5.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-rename": "^2.0.0",
+    "gulp-sass": "^5.1.0",
+    "gulp-uglify": "^3.0.2",
+    "sass": "^1.79.4"
+  }
+}
